@@ -55,7 +55,7 @@ npm run test
 ## Documentation
 
 - ### The Swagger documentation can be found at http://localhost:3000/docs
-- ### Get postman collection link [here](https://www.getpostman.com/collections/f7f16299508219eb4829)
+- ### Get postman collection link [here](https://www.getpostman.com/collections/26dd19c183417db4fdf4)
 
 #
 
