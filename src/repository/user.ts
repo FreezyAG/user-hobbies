@@ -26,7 +26,12 @@ export class UserRepository {
       },
       { deleted: 0 }
     )
-      .populate("hobbies", "id name passionLevel year deleted")
+      .populate(
+      {
+        path: "hobbies",
+        match:  {$or: [{ deleted: { $exists: false } }, { deleted: false }]},
+        select: "id name passionLevel year"
+      })
       .lean();
   };
 
