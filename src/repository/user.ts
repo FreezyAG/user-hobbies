@@ -22,7 +22,7 @@ export class UserRepository {
           select: "id name passionLevel year"
         }
       )
-      .lean();``
+      .lean();
   };
 
   findAll = async (): Promise<IUser[]> => {
