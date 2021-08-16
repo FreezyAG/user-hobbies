@@ -15,8 +15,14 @@ export class UserRepository {
       },
       { deleted: 0 }
     )
-      .populate("hobbies", "id name passionLevel year")
-      .lean();
+      .populate(
+        {
+          path: "hobbies",
+          match:  {$or: [{ deleted: { $exists: false } }, { deleted: false }]},
+          select: "id name passionLevel year"
+        }
+      )
+      .lean();``
   };
 
   findAll = async (): Promise<IUser[]> => {
@@ -37,8 +43,11 @@ export class UserRepository {
 
   create = async (args: IUser): Promise<IUser> => {
     return (await User.create({ ...args })).populate(
-      "hobbies",
-      "id name passionLevel year"
+      {
+        path: "hobbies",
+        match:  {$or: [{ deleted: { $exists: false } }, { deleted: false }]},
+        select: "id name passionLevel year"
+      }
     );
   };
 
@@ -65,7 +74,13 @@ export class UserRepository {
         },
       }
     )
-      .populate("hobbies", "id name passionLevel year")
+      .populate(
+        {
+          path: "hobbies",
+          match:  {$or: [{ deleted: { $exists: false } }, { deleted: false }]},
+          select: "id name passionLevel year"
+        }
+      )
       .lean();
   };
 
@@ -87,7 +102,13 @@ export class UserRepository {
         },
       }
     )
-      .populate("hobbies", "id name passionLevel year")
+      .populate(
+        {
+          path: "hobbies",
+          match:  {$or: [{ deleted: { $exists: false } }, { deleted: false }]},
+          select: "id name passionLevel year"
+        }
+      )
       .lean();
   };
 
