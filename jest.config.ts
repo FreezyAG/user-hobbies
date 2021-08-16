@@ -1,4 +1,4 @@
-require("jest-config");
+import "jest-config";
 
 const ignoredPaths = [
   '<rootDir>/node_modules/',
