@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    command: npm start
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      MONGO_ADDRESS: mongodb
+      PORT: 3000
+    env_file:
+      - ./src/config.ts
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    restart: always
+    volumes:
+      - data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: db
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: pass
+
+volumes:
+  data:

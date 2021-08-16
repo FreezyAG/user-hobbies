@@ -1,0 +1,293 @@
+paths:
+  /:
+    get:
+      tags:
+        - Default
+      summary: Health check
+      description: Returns 'Hello World' if the server has started.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+              example:
+                message: Hello World
+        500:
+          $ref: "#/components/responses/InternalError"
+  /user:
+    post:
+      tags:
+        - User
+      summary: Create a user
+      description: Create a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequestBody"
+      responses:
+        200:
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+              example:
+                error: false
+                message: User created successfully
+                data:
+                  firstName: "John"
+                  lastName: "Doe"
+                  hobbies: []
+        422:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+  /users:
+    get:
+      tags:
+        - User
+      summary: List all users
+      description: Fetches all users
+      responses:
+        200:
+          description: Users retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+              example:
+                - error: false
+                  message: Users retrieved successfully
+                  data:
+                    firstName: "John"
+                    lastName: "Doe"
+                    hobbies:
+                      - c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+        500:
+          $ref: "#/components/responses/InternalError"
+  /user/{userId}:
+    get:
+      tags:
+        - User
+      summary: Retrieves a user by id
+      description: Returns a specified user's details
+      parameters:
+        - $ref: "#/components/parameters/userId"
+      responses:
+        200:
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+              example:
+                error: false
+                message: User retrieved successfully
+                data:
+                  firstName: "John"
+                  lastName: "Doe"
+                  hobbies:
+                    - c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+        422:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+    patch:
+      tags:
+        - User
+      summary: Updates a user
+      description: Updates a user's details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequestBody"
+      responses:
+        201:
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+              example:
+                error: false
+                message: User updated successfully
+                data:
+                  firstName: "John"
+                  lastName: "Doe"
+                  hobbies:
+                    - c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        422:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+    delete:
+      tags:
+        - User
+      summary: Deletes a user
+      description: Deletes a user's details
+      responses:
+        200:
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+              example:
+                error: false
+                message: User deleted successfully
+                data: true
+        400:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+  /hobby/{userId}:
+    post:
+      tags:
+        - Hobby
+      summary: Creates a hobby for a user
+      description: Creates a hobby
+      parameters:
+        - $ref: "#/components/parameters/userId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Hobby"
+      responses:
+        200:
+          description: Hobby created successfully
+          content:
+            application/json:
+              schema:
+                error: boolean
+                message: string
+                $ref: "#/components/schemas/HobbyResponse"
+              example:
+                error: false
+                message: Hobby created successfully
+                data:
+                  name: "Swimming"
+                  year: "2021"
+                  passionLevel: "high"
+        422:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+  /hobby/{hobbyId}:
+    get:
+      tags:
+        - Hobby
+      summary: Retrieves a hobby by id
+      description: Returns a specified hobby's details
+      parameters:
+        - $ref: "#/components/parameters/hobbyId"
+      responses:
+        200:
+          description: Hobby retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HobbyResponse"
+              example:
+                error: false
+                message: Hobby retrieved successfully
+                data:
+                  name: "Swimming"
+                  year: "2021"
+                  passionLevel: "high"
+        422:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+    patch:
+      tags:
+        - Hobby
+      summary: Updates a hobby
+      description: Updates a hobby's details
+      parameters:
+        - $ref: "#/components/parameters/hobbyId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Hobby"
+      responses:
+        201:
+          description: Hobby updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HobbyResponse"
+              example:
+                error: false
+                message: Hobby updated successfully
+                data:
+                  name: "Swimming"
+                  year: "2021"
+                  passionLevel: "high"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        422:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+    delete:
+      tags:
+        - Hobby
+      summary: Deletes a hobby
+      description: Deletes a hobby's details
+      parameters:
+        - $ref: "#/components/parameters/hobbyId"
+      responses:
+        200:
+          description: Hobby deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HobbyResponse"
+              example:
+                error: false
+                message: Hobby deleted successfully
+                data: true
+        400:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"
+  /hobbies/{userId}:
+    get:
+      tags:
+        - Hobby
+      summary: Retrieves all hobbies for a user
+      description: Returns a hobbies for a user
+      parameters:
+        - $ref: "#/components/parameters/userId"
+      responses:
+        200:
+          description: Hobbies retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HobbyResponse"
+              example:
+                error: false
+                message: Hobbies retrieved successfully
+                data:
+                  name: "Swimming"
+                  year: "2021"
+                  passionLevel: "high"
+        422:
+          $ref: "#/components/responses/BadRequestError"
+        500:
+          $ref: "#/components/responses/InternalError"

@@ -1,0 +1,18 @@
+components:
+  parameters:
+    userId:
+      in: path
+      name: userId
+      description: User ID
+      required: true
+      schema:
+        type: string
+        format: uuid
+    hobbyId:
+      in: path
+      name: hobbyId
+      description: Hobby ID
+      required: true
+      schema:
+        type: string
+        format: uuid

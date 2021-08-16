@@ -1,0 +1,100 @@
+components:
+  schemas:
+    Message:
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: boolean
+        message:
+          type: string
+    User:
+      required:
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          description: User's first name
+          type: string
+        lastName:
+          description: User's last name
+          type: string
+        hobbies:
+          description: User's hobbies
+          type: array
+          items:
+            $ref: "#/components/schemas/Hobby"
+    UserRequestBody:
+      required:
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          description: User's first name
+          type: string
+        lastName:
+          description: User's last name
+          type: string
+    Users:
+      description: List of users
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+    UserResponse:
+      required:
+        - error
+        - message
+        - data
+      properties:
+        error:
+          description: Error status
+          type: boolean
+        message:
+          description: Server response
+          type: string
+        data:
+          description: Response body
+          oneOf:
+            - $ref: "#/components/schemas/Hobby"
+            - $ref: "#/components/schemas/Hobbies"
+            - type: boolean
+    Hobby:
+      required:
+        - name
+        - passionLevel
+        - year
+      properties:
+        name:
+          description: Name of hobby
+          type: string
+        passionLevel:
+          description: Passion level of hobby
+          type: string
+          enum: [low, medium, high, very-high]
+        year:
+          description: Year hobby started
+          type: integer
+    Hobbies:
+      description: List of hobbies
+      type: array
+      items:
+        $ref: "#/components/schemas/Hobby"
+    HobbyResponse:
+      required:
+        - error
+        - message
+        - data
+      properties:
+        error:
+          description: Error status
+          type: boolean
+        message:
+          description: Server response
+          type: string
+        data:
+          description: Response body
+          oneOf:
+            - $ref: "#/components/schemas/Hobby"
+            - $ref: "#/components/schemas/Hobbies"
+            - type: boolean
