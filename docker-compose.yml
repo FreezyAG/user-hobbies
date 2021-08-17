@@ -8,7 +8,9 @@ services:
       - .:/app
       - /app/node_modules
     environment:
+      NODE_ENV: production
       MONGO_ADDRESS: mongodb
+      MONGODB_URI: mongodb://user:pass@mongodb:27017/admin
       PORT: 3000
     env_file:
       - ./src/config.ts

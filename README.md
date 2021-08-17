@@ -36,6 +36,14 @@ docker-compose up
 npm install
 ```
 
+**Database**
+
+```
+- get a mongodb uri
+- create a .env file on the project's root directory
+- set the connection uri as MONGODB_URI in the .env file
+```
+
 **Start the application**
 
 ```
