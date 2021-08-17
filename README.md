@@ -41,13 +41,14 @@ npm install
 ```
 - get a mongodb uri
 - create a .env file on the project's root directory
-- set the connection uri as MONGODB_URI in the .env file
+- set the connection uri as MONGODB_URI in the .env file (i.e MONGODB_URI=<connection uri>)
 ```
 
 **Start the application**
 
 ```
-npm start
+- source .env
+- npm start
 ```
 
 #
