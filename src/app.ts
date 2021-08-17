@@ -2,10 +2,12 @@
 /*                              external imports                              */
 /* -------------------------------------------------------------------------- */
 import "reflect-metadata";
+import path from "path";
 import { Server } from "http";
 
 import express from "express";
 import bodyParser from "body-parser";
+import dotEnv from 'dotenv';
 import bunyanMiddleware from "express-bunyan-logger";
 import morgan from "morgan";
 import { Container, Service } from "typedi";
@@ -23,6 +25,8 @@ import { logger } from "./utils/logger";
 import cors from "./middleware/utils";
 import { createMongoDBConnection } from "./db/mongodb";
 import ErrorHandler from "./middleware/error-handler";
+
+dotEnv.config({ path: path.resolve(__dirname, '../.env') })
 
 @Service()
 export class App {
